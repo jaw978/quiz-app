@@ -13,16 +13,8 @@ if (!supabaseUrl || !supabaseServiceKey) {
   console.error('SUPABASE_SERVICE_KEY:', supabaseServiceKey ? '✓' : '✗');
 }
 
-// 创建客户端（禁用 Realtime 避免启动时崩溃）
-export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
-  },
-  realtime: {
-    enabled: false, // 禁用实时功能，避免启动时连接失败
-  },
-});
+// 创建客户端
+export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseServiceKey);
 
 // 数据库表名
 export const TABLES = {
