@@ -1,4 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import WebSocket from 'ws';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,8 +14,12 @@ if (!supabaseUrl || !supabaseServiceKey) {
   console.error('SUPABASE_SERVICE_KEY:', supabaseServiceKey ? '✓' : '✗');
 }
 
-// 创建客户端
-export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseServiceKey);
+// 创建客户端，提供 WebSocket 支持
+export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseServiceKey, {
+  realtime: {
+    transport: WebSocket as any,
+  },
+});
 
 // 数据库表名
 export const TABLES = {
